@@ -1,15 +1,7 @@
 edu.Hangman
 ===========
-
-
-Projekt: „Hangman“
-
-Zeit: 6 Wochen
-
 bis: 27.06.14
 
- 
-Stand: 2014-05-19
  
  
  
@@ -33,6 +25,9 @@ Anforderungen:
 •    Einlesen der Lösungswörter aus einer Datei [KANN]
  
 •    Verschlüsselung der Lösungswörterdatei [KANN]
+ 
+ 
+ 
  
  
  
