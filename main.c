@@ -9,8 +9,9 @@
  * Datum:   2014-05-29
  * Beschreibung:
  * Hangman... blabla
- *
- *
+ * Quellenangaben: http://ascii.co.uk/art/hangman (Hangman Zeichnung)
+ *                 http://www.peace-software.de/ckurs8.html (Arrays an Funktionen übergeben)
+ *                 http://www.tutorials.at/c/09-arrays-strings.html (fgets (eingabe, 255, stdin);)
  * * * * * * * * * * * * * * * * * * * * * */
 
 int Grafik (int i, int leicht, char name[])
