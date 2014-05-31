@@ -2,16 +2,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
+#include <ctype.h>
 
 /* * * * * * * * * * * * * * * * * * * * * *
  * Klasse:  IFA 31
  * Name:    Julian Roerig & Michael Schwarz
- * Datum:   2014-05-29
+ * Datum:   2014-05-31
  * Beschreibung:
  * Hangman... blabla
  * Quellenangaben: http://ascii.co.uk/art/hangman (Hangman Zeichnung)
  *                 http://www.peace-software.de/ckurs8.html (Arrays an Funktionen übergeben)
  *                 http://www.tutorials.at/c/09-arrays-strings.html (fgets (eingabe, 255, stdin);)
+ *                 http://www.c-howto.de/ (Wissenswertes über Stringfunktionen)
  * * * * * * * * * * * * * * * * * * * * * */
 
 int Grafik (int i, int leicht, char name[])
@@ -384,8 +386,9 @@ int Grafik (int i, int leicht, char name[])
     return 0;
 }
 
-int main()
+int GrafikTesten()
 {
+    //durchläuft die Grafischen Bilder des Hangman, damit man prüfen kann, ob die Darstellung gut ist
     int wied =0, i=0;
     char name[20];
     printf("Geben Sie bitte Ihren Namen ein.\n");
@@ -407,4 +410,119 @@ int main()
 
 
     return 0;
+}
+
+int FunktionenKennenlernen()
+{
+    //dient lediglich zu Übungszwecken und hat nichts mit dem eigentlichen Programm zu tun
+    do
+    {
+        char string[10];
+        char needle[10];
+        scanf("%s",&string);
+        scanf("%s",&needle);
+
+        if(strstr(string, needle))
+        {
+            printf("String enthaelt %s\n",needle);;
+        }
+
+
+    }
+    while(1);
+    return 0;
+}
+int main()
+{
+    //dient zum kennenlernen der verschiedenen Funktionen
+    //FunktionenKennenlernen(); /*
+    int wied =0, i=0, laenge=0, treffer=0, fehler=0;
+
+
+    //simuliert die Grafikausgabe des Hangman
+    //GrafikTest(); /*
+
+    do
+    {
+        char wort[100], geraten[100],eingabe[100];
+        printf("Bitte geben sie das zu erratende Wort ein.\n");
+        scanf("%s",&wort);
+        printf("Ihr Wort lautet = %s\n",wort);
+        printf("1. Eingabe:\n");
+
+        do
+        {
+            scanf("%s",&eingabe);
+
+//prüft, ob der erste Buchstabe auch wirklich ein Buchstabe ist
+            if (isalpha(eingabe[0]))
+            {
+                printf("$eingabe ist ein Buchstabe\n");
+            }
+            else
+            {
+                printf("Bei der Eingabe handelt es sich um keinen Buchstaben.\n");
+                printf("Probieren Sie es noch einmal\n");
+            }
+        }
+        while(isalpha(eingabe[0])==0);
+
+                laenge = strlen(eingabe);
+                printf("Laenge der Eingabe: %i\n",laenge);
+                if (laenge == 1)
+                {
+                    //hänge die eingabe hinten an die geratenen Einträge
+
+                    strcat(geraten, eingabe);
+                }
+
+
+                printf("2. Eingabe:\n");
+
+                //ließt so lange die eingabe ein, bis ein Buchstabe genannt ist, der noch nicht  in $geraten zu finden ist
+                do
+                {
+                    scanf("%s",&eingabe);
+                    if(strstr(geraten, eingabe))
+                    {
+                        printf("Der gesuchte Buchstabe wurde schon geraten\n");
+                        printf("Geben sie einen Buchstaben an, den sie noch nicht geraten haben\n");
+                    }
+                }
+                while(strstr(geraten, eingabe));
+
+                if (strstr(wort,eingabe))
+                {
+                    treffer=+1;
+                    printf("Wort enthaelt Buchstaben\n");
+
+                }
+                else
+                {
+
+                    fehler=+1;
+                    printf("%i. Fehler\n",fehler);
+                }
+                laenge = strlen(eingabe);
+                printf("Laenge der Eingabe: %i\n",laenge);
+                if (laenge == 1)
+                {
+                    //hänge die eingabe hinten an die geratenen Einträge
+                    strcat(geraten,", ");
+                    strcat(geraten, eingabe);
+                }
+
+                printf("Sie haben bisher folgende Buchstaben geraten: %s",geraten);
+
+
+
+
+
+
+        printf("\n__________________________________________________________________________\n[1] = Wiederholen?\n");
+        scanf("%i",&wied);
+    }
+    while(wied==1);
+    return 0;
+
 }
