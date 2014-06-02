@@ -12,9 +12,11 @@
  * Hangman... blabla
  *
  * Muss ergänzt werden:
- * °beim 1. Versuch ein Wort eingeben erzeugt bei $geraten ein Komma (am besten anstatt i!=1, geraten ist noch leer nehmen
- * °Ausgabe des Wortes mit Anzeige der bisher geraten Buchstaben
- * °Bei richtig erratenem Wort goto einbinden
+ * °Wort zufällig aus einer txt lesen
+ * °Ausgabe des Wortes ohne Herzen
+ * °Bei richtig erratenem Wort goto einbinden (siehe Zeile 493)
+ * °Statistik mit Name, Wort, Gewonnen/Verloren, Versuchen, Zeit in extra Datei schreiben und sortiert als Gesamtstatistik ausgeben
+ * °Eingabe auf Länge prüfen, da auch "wo" / "to" ... als Treffer gezählt werden
  *
  * Quellenangaben: http://ascii.co.uk/art/hangman (Hangman Zeichnung)
  *                 http://www.peace-software.de/ckurs8.html (Arrays an Funktionen übergeben)
@@ -442,7 +444,7 @@ int main()
     int wied=0;
     do
     {
-        int i=0, i2=0, i3=0, treffer=0, fehler=0, laenge=0;
+        int i=0, i2=0, i3=0, treffer=0, fehler=0, gewonnen=0;
         char wort[100]="Wort", wortausgabe[100]="", geraten[100]="", geratenWort[500]="", eingabe[100], name[30]="Julian Rörig";
         //wandlet das Wort in Kleinbuchstaben um
         for (i2 = 0; wort[i2]; i2++)
@@ -490,22 +492,24 @@ int main()
 
 
 //es wurde mehr als ein Buchstabe eingegeben
-                }
-                else
-                {
-                if (eingabe == wort)
-                {
-                    printf("Sie haben das Wort erraten\n");
-                    //goto
-                }
-                else
-                    {
-                        printf("Dies war nicht das zu erratene Wort\n");
-                    }
+//wird nicht benötigt, da unten das ganze Wort überprüft wird und so die Ausgabe erfolgt (siehe:   if (wortausgabe[i3] == wort [i3])  )          }
+                    /*    else
+                         {
+
+                             if (eingabe == wort)
+                             {
+                                 printf("Sie haben das Wort erraten\n");
+                                 //goto
+                             }
+                             else
+                             {
+                                 printf("Dies war nicht das zu erratene Wort\n");
+                             }
 
 
+                         }
+                    */
                 }
-
             }
             while(isalpha(eingabe[0])==0 || strstr(geraten, eingabe));
 
@@ -529,7 +533,7 @@ int main()
 
             if (strlen(eingabe)==1)
             {
-                if (i!=1)
+                if (strlen(geraten) != 0)
                 {
                     strcat(geraten,", ");
                 }
@@ -538,7 +542,7 @@ int main()
             }
             else
             {
-                if (i!=1)
+                if (strlen(geratenWort) != 0)
                 {
                     strcat(geratenWort,", ");
                 }
@@ -546,26 +550,36 @@ int main()
             }
 
 //Gibt die zu lösenden Buchstaben aus
-            laenge = strlen(wort);
-            for(i3=0; i3 < laenge; i3++)
+
+            if (strlen(eingabe)==1)
             {
-                if (wort[i3] != eingabe[0] && wort[i3] != "_")
-                    //|| wort[i] = strstr(wort[i], geraten))
+                for(i3=0; i3 < strlen(wort); i3++)
                 {
-                    wortausgabe[i3]= "_";
-                }
-                else
-                {
-                    wortausgabe[i3]=wort[i3];
+                    if (wort[i3] == eingabe[0])
+                    {
+                        wortausgabe[i3] = eingabe [0];
+                    }
+                    else if (wort[i3] != eingabe[0] && isalpha(wortausgabe[i3])==0 )
+                    {
+                        wortausgabe[i3] = "_";
+
+                    }
+
                 }
             }
-            printf("%s",wortausgabe);
+
+            printf("Das Wort lautet: %s\n",wortausgabe);
+
+            if (strcmp(wort, wortausgabe)==0)
+            {
+                gewonnen=1;
+            }
 
 
-
-
-
-
+            if (gewonnen == 1)
+            {
+                printf("Sie haben gewonnen!\n");
+            }
 
 
             Grafik(fehler,1,name);
