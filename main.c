@@ -442,8 +442,8 @@ int main()
     int wied=0;
     do
     {
-        int i=0, i2=0, treffer=0, fehler=0;
-        char wort[100]="Wort", geraten[100]="", geratenWort[500]="", eingabe[100], name[30]="Julian Rörig";
+        int i=0, i2=0, i3=0, treffer=0, fehler=0, laenge=0;
+        char wort[100]="Wort", wortausgabe[100]="", geraten[100]="", geratenWort[500]="", eingabe[100], name[30]="Julian Rörig";
         //wandlet das Wort in Kleinbuchstaben um
         for (i2 = 0; wort[i2]; i2++)
         {
@@ -544,6 +544,29 @@ int main()
                 }
                 strcat(geratenWort, eingabe);
             }
+
+//Gibt die zu lösenden Buchstaben aus
+            laenge = strlen(wort);
+            for(i3=0; i3 < laenge; i3++)
+            {
+                if (wort[i3] != eingabe[0] && wort[i3] != "_")
+                    //|| wort[i] = strstr(wort[i], geraten))
+                {
+                    wortausgabe[i3]= "_";
+                }
+                else
+                {
+                    wortausgabe[i3]=wort[i3];
+                }
+            }
+            printf("%s",wortausgabe);
+
+
+
+
+
+
+
 
             Grafik(fehler,1,name);
             system("pause");
