@@ -7,13 +7,12 @@
 /* * * * * * * * * * * * * * * * * * * * * *
  * Klasse:  IFA 31
  * Name:    Julian Roerig & Michael Schwarz
- * Datum:   2014-05-31
+ * Datum:   2014-06-06
  * Beschreibung:
  * Hangman... blabla
  *
  * Muss ergänzt werden:
  * °Wort zufällig aus einer txt lesen
- * °Ausgabe des Wortes ohne Herzen oder andere Sonderzeichen
  * °Bei richtig erratenem Wort goto einbinden (siehe Zeile 493)
  * °Statistik mit Name, Wort, Gewonnen/Verloren, Versuchen, Zeit in extra Datei schreiben und sortiert als Gesamtstatistik ausgeben
  * °Eingabe auf Länge prüfen, da auch "wo" / "to" ... als Treffer gezählt werden
@@ -21,8 +20,10 @@
  * °Eine Hilfe mit einbauen
  * °Ä,Ü,Ö,ß in ae, ue, oe, ss umwandeln und eine meldung ausgeben
  * °ACHTUNG: AE, UE,OE können werden bisher nicht als einzelne Buchstaben gewertet.
- * °Bei der while-Schleife muss geratenWort überprüft werden, da sonst nicht überprüft wird, ob ein Wort schon doppelt geraten wurde
+ * °Bei der while-Schleife muss geratenWort überprüft werden, da sonst nicht überprüft wird, ob ein Wort schon doppelt geraten wurde -> halb fertig: wenn beim 1. Versuch ein Wort geraten wird, kann es aufgrund des fehlenden Kommas nochmal geraten werden
  * °Bei der while-Überprüfung eine Variable benutzen, welche aus ", " und $Eingabe besteht -> ist genauer
+ * °Durchlauf von 10 Versuchen auf 10 Fehlversuche limitieren
+ * °Ein Spielende bei Gewonnen einbauen
  *
  * Quellenangaben: http://ascii.co.uk/art/hangman (Hangman Zeichnung)
  *                 http://www.peace-software.de/ckurs8.html (Arrays an Funktionen übergeben)
@@ -428,7 +429,7 @@ int GrafikTesten()
 int Ausgabe(int i, int Reihenfolge, int error, char wort[100], char wortausgabe[100], char geraten[100], char geratenWort[500], char eingabe[100], char name [30], int treffer, int fehler, int gewonnen)
 {
 
-            system("cls");
+    system("cls");
 
     Grafik(fehler,0,name);
 
@@ -444,23 +445,24 @@ int Ausgabe(int i, int Reihenfolge, int error, char wort[100], char wortausgabe[
     printf("Bisher geratene Woerter: %s\n",geratenWort);
     if (i!=0)
     {
-    printf("%i Treffer | %i Fehler | %i Versuch von 10 Versuchen\n",treffer,fehler, i);
+        printf("%i Treffer | %i Fehler | %i Versuch von 10 Versuchen\n",treffer,fehler, i);
     }
     if (i<=9)
-    {printf("%i Versuch\n",i+1);
+    {
+        printf("%i Versuch\n",i+1);
     }
 
     if (Reihenfolge==2)
     {
         if (strlen(eingabe)==1)
         {
-           printf("Der eingegebene Buchstabe wurde schon geraten\n");
-           printf("Geben Sie einen Buchstaben an, den Sie noch nicht geraten haben\n");
+            printf("Der eingegebene Buchstabe wurde schon geraten\n");
+            printf("Geben Sie einen Buchstaben an, den Sie noch nicht geraten haben\n");
         }
         else
         {
-           printf("Das eingegebene Wort wurde schon geraten\n");
-           printf("Geben Sie ein Wort an, den Sie noch nicht geraten haben\n");
+            printf("Das eingegebene Wort wurde schon geraten\n");
+            printf("Geben Sie ein Wort an, den Sie noch nicht geraten haben\n");
         }
 
         system("pause");
@@ -471,13 +473,13 @@ int Ausgabe(int i, int Reihenfolge, int error, char wort[100], char wortausgabe[
     {
         if (strlen(eingabe)==1)
         {
-        printf("Kein zulaessiger Buchstabe.\n");
-        printf("Probieren Sie es noch einmal\n");
+            printf("Kein zulaessiger Buchstabe.\n");
+            printf("Probieren Sie es noch einmal\n");
         }
         else
         {
-        printf("Kein zulaessiges Wort.\n");
-        printf("Probieren Sie es noch einmal\n");
+            printf("Kein zulaessiges Wort.\n");
+            printf("Probieren Sie es noch einmal\n");
         }
 
         system("pause");
@@ -496,7 +498,7 @@ int Ausgabe(int i, int Reihenfolge, int error, char wort[100], char wortausgabe[
 
     if (Reihenfolge==6)
     {
-printf("\n__________________________________________________________________________\n[1] = Wiederholen?\n");
+        printf("\n__________________________________________________________________________\n[1] = Wiederholen?\n");
     }
 
     if (Reihenfolge==7)
@@ -518,7 +520,7 @@ int main()
     do
     {
         int i=0, i2=0, i3=0, treffer=0, fehler=0, gewonnen=0, gewonnenWort, error;
-        char wort[100]="Wort", wortausgabe[100]="", geraten[100]="", geratenWort[500]="", eingabe[100], name[30]="Julian Rörig";
+        char wort[100]="Wort", wortausgabe[100]="", geraten[100]="", geratenWort[500]="", eingabe[100], name[30]="Julian Rörig", geratenEingabe[100];
         //wandlet das Wort in Kleinbuchstaben um
         for (i2 = 0; wort[i2]; i2++)
         {
@@ -535,7 +537,7 @@ int main()
 //wiederhole solange, bis ein Buchstabe angegeben wird, der noch nicht geraten wurde, und ein Buchstabe ist
             do
             {
-Ausgabe(i,1,error,wort,wortausgabe,geraten,geratenWort,eingabe,name,treffer,fehler,gewonnen);
+                Ausgabe(i,1,error,wort,wortausgabe,geraten,geratenWort,eingabe,name,treffer,fehler,gewonnen);
                 scanf("%s",eingabe);
                 //wandelt die Eingabe in Kleinbuchstaben um
                 for (i2 = 0; eingabe[i2]; i2++)
@@ -543,6 +545,13 @@ Ausgabe(i,1,error,wort,wortausgabe,geraten,geratenWort,eingabe,name,treffer,fehl
                     eingabe[i2] = tolower(eingabe[i2]);
                 }
 
+
+                geratenEingabe[0]=',';
+                geratenEingabe[1]=' ';
+                for (i2=0; i2 <=strlen(eingabe); i2++)
+                {
+                    geratenEingabe[i2+2] = eingabe[i2];
+                }
 
 //es wurde nur ein Buchstabe eingegeben
                 if(strlen(eingabe)==1)
@@ -571,9 +580,13 @@ Ausgabe(i,1,error,wort,wortausgabe,geraten,geratenWort,eingabe,name,treffer,fehl
 
 
                 }
+if (strlen(eingabe)==1)
+{
+    geratenEingabe[1]='\0';
+}
 
             }
-            while(isalpha(eingabe[0])==0 || strstr(geraten, eingabe));
+            while(isalpha(eingabe[0])==0 || strstr(geraten, eingabe) || strstr(geratenWort, geratenEingabe));
 
 //Buchstabe ist im Wort enthalten
 //Zählt die richtigen Treffer
@@ -636,7 +649,7 @@ Ausgabe(i,1,error,wort,wortausgabe,geraten,geratenWort,eingabe,name,treffer,fehl
                     }
                     else if (wort[i3] != eingabe[0] && isalpha(wortausgabe[i3])==0 )
                     {
-                        wortausgabe[i3] = "_";
+                        wortausgabe[i3] = '.';
 
                     }
 
@@ -663,7 +676,7 @@ Ausgabe(i,1,error,wort,wortausgabe,geraten,geratenWort,eingabe,name,treffer,fehl
 
 
 
-         Ausgabe(i,6,error,wort,wortausgabe,geraten,geratenWort,eingabe,name,treffer,fehler,gewonnen);
+        Ausgabe(i,6,error,wort,wortausgabe,geraten,geratenWort,eingabe,name,treffer,fehler,gewonnen);
         scanf("%i",&wied);
         //setzt die eingaben wieder auf den Standard zurück
 
