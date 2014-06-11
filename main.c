@@ -37,7 +37,7 @@
 
 #define TYPE_TIME 100;
 
-#define PLAY_INTRO_PART1 0
+#define PLAY_INTRO_PART1 1
 #define PLAY_INTRO_PART2 1
 
 int Anykey()
@@ -121,6 +121,7 @@ void PlayIntro()
         Draw_SetBGColor(G_COLOR_BLACK);
         Draw_SetFGColor(G_COLOR_GRAY);
         Draw_Clear();
+        Draw_FlushBuffer();
 
         int centerX = G_DEFAULT_WIDTH / 2;
         int centerY = G_DEFAULT_HEIGHT / 2;
