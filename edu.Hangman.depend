@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1402486465 source:c:\users\mschwarz\documents\github\edu.hangman\graphics.c
+	"graphics.h"
+
+1402486427 c:\users\mschwarz\documents\github\edu.hangman\graphics.h
+	<windows.h>
+
+1402492589 source:c:\users\mschwarz\documents\github\edu.hangman\main.c
+	<unistd.h>
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	<ctype.h>
+	<conio.h>
+	"graphics.h"
+

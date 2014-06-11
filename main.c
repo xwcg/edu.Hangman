@@ -1,8 +1,11 @@
 // Includes
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
 #include <ctype.h>
+#include <conio.h>
+#include "graphics.h"
 
 /* * * * * * * * * * * * * * * * * * * * * *
  * Klasse:  IFA 31
@@ -32,655 +35,197 @@
  *                 http://www.roseindia.net/c-tutorials/c-string-lowercase.shtml (String in Kleinbuchstaben umschreiben)
  * * * * * * * * * * * * * * * * * * * * * */
 
-int Grafik (int i, int leicht, char name[])
+#define TYPE_TIME 100;
+
+#define PLAY_INTRO_PART1 0
+#define PLAY_INTRO_PART2 1
+
+int Anykey()
 {
 
-    if (i == 0)      /*leere Fläche*/
-    {
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-    }
-    else if (i == 1) /*Hügel*/
-    {
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf(" \n");
-        printf("      _________________________         \n");
-        printf("     /                         \\       \n");
-        printf("    /                           \\      \n");
-        printf("   /                             \\     \n");
-        printf("  /                               \\    \n");
-        printf(" /                                 \\   \n");
-        printf("/                                   \\  \n");
-    }
-    else if (i == 2) /*Hügel, Stamm*/
-    {
-        printf("       _                                \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      |_|______________________         \n");
-        printf("     /                         \\       \n");
-        printf("    /                           \\      \n");
-        printf("   /                             \\     \n");
-        printf("  /                               \\    \n");
-        printf(" /                                 \\   \n");
-        printf("/                                   \\  \n");
-    }
-    else if (i == 3) /*Hügel, Stamm, Balken*/
-    {
-        printf("       ________________________         \n");
-        printf("      |  ______________________|        \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      |_|______________________         \n");
-        printf("     /                         \\       \n");
-        printf("    /                           \\      \n");
-        printf("   /                             \\     \n");
-        printf("  /                               \\    \n");
-        printf(" /                                 \\   \n");
-        printf("/                                   \\  \n");
-    }
-    else if (i == 4) /*Hügel, Stamm, Balken, Stütze*/
-    {
-        printf("       ________________________         \n");
-        printf("      |  ______________________|        \n");
-        printf("      | | / /                           \n");
-        printf("      | |/ /                            \n");
-        printf("      | | /                             \n");
-        printf("      | |/                              \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      |_|______________________         \n");
-        printf("     /                         \\       \n");
-        printf("    /                           \\      \n");
-        printf("   /                             \\     \n");
-        printf("  /                               \\    \n");
-        printf(" /                                 \\   \n");
-        printf("/                                   \\  \n");
-    }
-    else if (i == 5) /*Hügel, Stamm, Balken, Stütze, Fußstütze1*/
-    {
-        printf("       ________________________         \n");
-        printf("      |  ______________________|        \n");
-        printf("      | | / /                           \n");
-        printf("      | |/ /                            \n");
-        printf("      | | /                             \n");
-        printf("      | |/                              \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                    _          \n");
-        printf("      | |                   | |         \n");
-        printf("      | |                   | |         \n");
-        printf("      | |                   | |         \n");
-        printf("      | |                   | |         \n");
-        printf("      |_|___________________|_|         \n");
-        printf("     /                         \\       \n");
-        printf("    /                           \\      \n");
-        printf("   /                             \\     \n");
-        printf("  /                               \\    \n");
-        printf(" /                                 \\   \n");
-        printf("/                                   \\  \n");
-    }
-    else if (i == 6) /*Hügel, Stamm, Balken, Stütze, Fußstütze1, Fußstütze2*/
-    {
-        printf("       ________________________         \n");
-        printf("      |  ______________________|        \n");
-        printf("      | | / /                           \n");
-        printf("      | |/ /                            \n");
-        printf("      | | /                             \n");
-        printf("      | |/                              \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |_______ _________ ___          \n");
-        printf("      | |_______|_________|___|         \n");
-        printf("      | |                   | |         \n");
-        printf("      | |                   | |         \n");
-        printf("      | |                   | |         \n");
-        printf("      | |                   | |         \n");
-        printf("      |_|___________________|_|         \n");
-        printf("     /                         \\       \n");
-        printf("    /                           \\      \n");
-        printf("   /                             \\     \n");
-        printf("  /                               \\    \n");
-        printf(" /                                 \\   \n");
-        printf("/                                   \\  \n");
-    }
-    else if (i == 7) /*Hügel, Stamm, Balken, Stütze, Fußstütze1, Fußstütze2, Strick*/
-    {
-        printf("       ___________..___________         \n");
-        printf("      |  __________))__________|        \n");
-        printf("      | | / /      ||                   \n");
-        printf("      | |/ /       ||                   \n");
-        printf("      | | /        ||                   \n");
-        printf("      | |/         ||                   \n");
-        printf("      | |          ||                   \n");
-        printf("      | |         /_ \\                 \n");
-        printf("      | |        ||_| |                 \n");
-        printf("      | |         \\__/                 \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |                               \n");
-        printf("      | |_______ _________ ___          \n");
-        printf("      | |_______|_________|___|         \n");
-        printf("      | |                   | |         \n");
-        printf("      | |                   | |         \n");
-        printf("      | |                   | |         \n");
-        printf("      | |                   | |         \n");
-        printf("      |_|___________________|_|         \n");
-        printf("     /                         \\       \n");
-        printf("    /                           \\      \n");
-        printf("   /                             \\     \n");
-        printf("  /                               \\    \n");
-        printf(" /                                 \\   \n");
-        printf("/                                   \\  \n");
-    }
-    else if (i == 8) /*Hügel, Stamm, Balken, Stütze, Fußstütze1, Fußstütze2, Strick, Mann*/
-    {
-        printf("       ___________..___________         \n");
-        printf("      |  __________))__________|        \n");
-        printf("      | | / /      ||                   \n");
-        printf("      | |/ /       ||                   \n");
-        printf("      | | /        ||.-''.              \n");
-        printf("      | |/   (')   |/  _  \ (')         \n");
-        printf("      | |     \\\\   ||  `/,|//         \n");
-        printf("      | |      \\\\  (\\`_.' //         \n");
-        printf("      | |       \\\\.-`--'.//           \n");
-        printf("      | |        \\_ . . _/             \n");
-        printf("      | |          |   |                \n");
-        printf("      | |          | . |                \n");
-        printf("      | |          |   |                \n");
-        printf("      | |          ||'||                \n");
-        printf("      | |          || ||                \n");
-        printf("      | |          || ||                \n");
-        printf("      | |          || ||                \n");
-        printf("      | |_______ _/_|_|_\\_ ___         \n");
-        printf("      | |_______|_________|___|         \n");
-        printf("      | |                   | |         \n");
-        printf("      | |                   | |         \n");
-        printf("      | |                   | |         \n");
-        printf("      | |                   | |         \n");
-        printf("      |_|___________________|_|         \n");
-        printf("     /                         \\       \n");
-        printf("    /                           \\      \n");
-        printf("   /                             \\     \n");
-        printf("  /                               \\    \n");
-        printf(" /                                 \\   \n");
-        printf("/                                   \\  \n");
-    }
-    else if (i == 9) /*Hügel, Stamm, Balken, Stütze, Fußstütze1, Fußstütze2, Strick, Mann, Klappe auf*/
-    {
-        printf("       ___________..___________         \n");
-        printf("      |  __________))__________|        \n");
-        printf("      | | / /      ||                   \n");
-        printf("      | |/ /       ||                   \n");
-        printf("      | | /        ||.-''.              \n");
-        printf("      | |/   (')   |/  _  \ (')         \n");
-        printf("      | |     \\\\   ||  `/,|//         \n");
-        printf("      | |      \\\\  (\\`_.' //         \n");
-        printf("      | |       \\\\.-`--'.//           \n");
-        printf("      | |        \\_ . . _/             \n");
-        printf("      | |          |   |                \n");
-        printf("      | |          | . |                \n");
-        printf("      | |          |   |                \n");
-        printf("      | |          ||'||                \n");
-        printf("      | |          || ||                \n");
-        printf("      | |          || ||                \n");
-        printf("      | |          || ||                \n");
-        printf("      | |_______  / | | \\  ___         \n");
-        printf("      | |_______|\\`-' `-' |___|        \n");
-        printf("      | |       \\ \\         | |       \n");
-        printf("      | |        \\ \\        | |       \n");
-        printf("      | |         \\ \\       | |       \n");
-        printf("      | |          `'       | |         \n");
-        printf("      |_|___________________|_|         \n");
-        printf("     /                         \\       \n");
-        printf("    /                           \\      \n");
-        printf("   /                             \\     \n");
-        printf("  /                               \\    \n");
-        printf(" /                                 \\   \n");
-        printf("/                                   \\  \n");
-    }
-    else if (i == 10)/*Hügel, Stamm, Balken, Stütze, Fußstütze1, Fußstütze2, Strick, Mann, Klappe auf, Mann tot*/
-    {
-        printf("       ___________..___________         \n");
-        printf("      |  __________))__________|        \n");
-        printf("      | | / /      ||                   \n");
-        printf("      | |/ /       ||                   \n");
-        printf("      | | /        ||.-''.              \n");
-        printf("      | |/         |/  _  \             \n");
-        printf("      | |          ||  `/,|             \n");
-        printf("      | |          (\\`_.'              \n");
-        printf("      | |         .-`--'.               \n");
-        printf("      | |        /_ . . _\\             \n");
-        printf("      | |       // |   | \\\\           \n");
-        printf("      | |      //  | . |  \\\\          \n");
-        printf("      | |     ')   |   |   (`           \n");
-        printf("      | |          ||'||                \n");
-        printf("      | |          || ||                \n");
-        printf("      | |          || ||                \n");
-        printf("      | |          || ||                \n");
-        printf("      | |_______  / | | \\  ___         \n");
-        printf("      | |_______|\\`-' `-' |___|        \n");
-        printf("      | |       \\ \\         | |       \n");
-        printf("      | |        \\ \\        | |       \n");
-        printf("      | |         \\ \\       | |       \n");
-        printf("      | |          `'       | |         \n");
-        printf("      |_|___________________|_|         \n");
-        printf("     /                         \\       \n");
-        printf("    /                           \\      \n");
-        printf("   /                             \\     \n");
-        printf("  /             GAMEOVER          \\    \n");
-        printf(" /                                 \\   \n");
-        printf("/                R.I.P              \\  \n");
-        printf("                %s                      \n",name);
-    }
-    return 0;
 }
-int GrafikTesten()
+
+void PlayIntro()
 {
-    //durchläuft die Grafischen Bilder des Hangman, damit man prüfen kann, ob die Darstellung gut ist
-    int wied =0, i=0;
-    char name[20];
-    printf("Geben Sie bitte Ihren Namen ein.\n");
-    fgets (name, 20, stdin);
-
-    do
+    while(1)
     {
-        for(i=0; i<11; i++)
+        Draw_SetBGColor(G_COLOR_BLACK);
+        Draw_SetFGColor(G_COLOR_GRAY);
+
+        Draw_Write_Line(G_DEFAULT_HEIGHT -1, "Press any key to skip...");
+
+        if(PLAY_INTRO_PART1)
         {
-            system("cls");
-            Grafik(i,1,name);
-            system("pause");
+            GG_TypePrint(0, "Starting WarOS 1.0 ...");
+            if(_kbhit()) break;
+            Sleep(1000);
+            if(_kbhit()) break;
+            GG_TypePrint(1, "System Initialized");
+            if(_kbhit()) break;
+
+            Draw_SetFGColor(G_COLOR_GREEN);
+            GG_TypePrint(3, "Would you like to play a game?");
+            if(_kbhit()) break;
+
+            Sleep(1000);
+            if(_kbhit()) break;
+            Draw_SetFGColor(G_COLOR_WHITE);
+            GG_TypePrint(4, "Yes");
+            if(_kbhit()) break;
+
+            Sleep(500);
+            if(_kbhit()) break;
+            Draw_SetFGColor(G_COLOR_GREEN);
+            GG_TypePrint(5, "What game do you want to play?");
+            if(_kbhit()) break;
+
+            Sleep(1000);
+            if(_kbhit()) break;
+            Draw_SetFGColor(G_COLOR_WHITE);
+            GG_TypePrint(6, "What games do you have?");
+            if(_kbhit()) break;
+
+            Sleep(500);
+            if(_kbhit()) break;
+            Draw_SetFGColor(G_COLOR_GREEN);
+            GG_TypePrint(7, "Just hangman actually. They deleted the Wargame program. :(");
+            if(_kbhit()) break;
+
+            Sleep(1000);
+            if(_kbhit()) break;
+            Draw_SetFGColor(G_COLOR_WHITE);
+            GG_TypePrint(8, "Okay then. Let's Play Hangman!");
+            if(_kbhit()) break;
+
+            Sleep(500);
+            if(_kbhit()) break;
+            Draw_SetFGColor(G_COLOR_GREEN);
+            GG_TypePrint(9, "Episode 1");
+            if(_kbhit()) break;
+
+            Sleep(1000);
+            if(_kbhit()) break;
+            Draw_SetFGColor(G_COLOR_WHITE);
+            GG_TypePrint(10, "Don't forget to like, share and subscribe!");
+            if(_kbhit()) break;
+
+            Sleep(500);
+            if(_kbhit()) break;
+            Draw_SetFGColor(G_COLOR_GREEN);
+            GG_TypePrint(11, "It'll help the channel!");
+            if(_kbhit()) break;
+
+            Sleep(1500);
         }
-        printf("\n__________________________________________________________________________\n[1] = Wiederholen?\n");
-        scanf("%i",&wied);
 
+        Draw_SetBGColor(G_COLOR_BLACK);
+        Draw_SetFGColor(G_COLOR_GRAY);
+        Draw_Clear();
+
+        int centerX = G_DEFAULT_WIDTH / 2;
+        int centerY = G_DEFAULT_HEIGHT / 2;
+
+        if(PLAY_INTRO_PART2)
+        {
+
+            Draw_SetBGColor(G_COLOR_WHITE);
+            Draw_SetFGColor(G_COLOR_BLACK);
+
+            char ifa_line1[] = "                     00 000000 000000   000000   000000                         ";
+            char ifa_line2[] = "                     00 00     00  00       00  00   00                         ";
+            char ifa_line3[] = "                     00 0000   000000   00000        00                         ";
+            char ifa_line4[] = "                     00 00     00  00       00       00                         ";
+            char ifa_line5[] = "                     00 00     00  00       00       00                         ";
+            char ifa_line6[] = "                     00 00     00  00   00000        00                         ";
+            char ifa_line7[] = "                                                                                ";
+            char ifa_line8[] = "                                 PRESENTS                                       ";
+
+            // Show Class Logo
+            Draw_Write_Line_Fill(centerY - 5, "");
+            Draw_FlushBuffer();
+            Sleep(100);
+            Draw_Write_Line_Fill(centerY - 4, "");
+            Draw_FlushBuffer();
+            Sleep(100);
+            Draw_Write_Line_Fill(centerY - 3, ifa_line1);
+            Draw_FlushBuffer();
+            Sleep(100);
+            Draw_Write_Line_Fill(centerY - 2, ifa_line2);
+            Draw_FlushBuffer();
+            Sleep(100);
+            Draw_Write_Line_Fill(centerY - 1, ifa_line3);
+            Draw_FlushBuffer();
+            Sleep(100);
+            Draw_Write_Line_Fill(centerY + 0, ifa_line4);
+            Draw_FlushBuffer();
+            Sleep(100);
+            Draw_Write_Line_Fill(centerY + 1, ifa_line5);
+            Draw_FlushBuffer();
+            Sleep(100);
+            Draw_Write_Line_Fill(centerY + 2, ifa_line6);
+            Draw_FlushBuffer();
+            Sleep(100);
+            Draw_Write_Line_Fill(centerY + 3, ifa_line7);
+            Draw_FlushBuffer();
+            Sleep(100);
+            Draw_Write_Line_Fill(centerY + 4, ifa_line8);
+            Draw_FlushBuffer();
+            Sleep(100);
+            Draw_Write_Line_Fill(centerY + 5, "");
+            Draw_FlushBuffer();
+            Sleep(100);
+            Draw_Write_Line_Fill(centerY + 6, "");
+            Draw_FlushBuffer();
+
+            Sleep(2000);
+
+            // Hide class logo
+            Draw_SetBGColor(G_COLOR_BLACK);
+
+            int tempY;
+
+            for(tempY = centerY - 5; tempY <= centerY + 6; tempY++)
+            {
+                Draw_Write_Line_Fill(tempY, "");
+                Draw_FlushBuffer();
+                Sleep(100);
+            }
+        }
+
+        break;
     }
-    while(wied==1);
 
-
-    return 0;
+    // Clear screen
+    Draw_SetBGColor(G_COLOR_BLACK);
+    Draw_SetFGColor(G_COLOR_GRAY);
+    Draw_Clear();
+    Draw_FlushBuffer();
 }
-int Ausgabe(int i, int Reihenfolge, int error, char wort[100], char wortausgabe[100], char geraten[100], char geratenWort[500], char eingabe[100], char name [30], int treffer, int fehler, int gewonnen)
+
+void GG_TypePrint(int line, char *e)
 {
-
-    system("cls");
-
-    Grafik(fehler,0,name);
-
-    if (i<=9)
+    int i, len;
+    len = strlen(e);
+    for(i = 0; i < len; i++)
     {
-        printf("Das Wort lautet: %s\n",wortausgabe);
+        Draw_SetPos(i, line);
+        Draw_Write_Char(e[i]);
+        Draw_FlushBuffer();
+        Sleep(100);
+        if(_kbhit()) break;
     }
-    else
-    {
-        printf("Das Wort lautet: %s\n",wort);
-    }
-    printf("Bisher geratene Buchstaben: %s\n",geraten);
-    printf("Bisher geratene Woerter: %s\n",geratenWort);
-    if (i!=0)
-    {
-        printf("%i Treffer | %i Fehler | %i Versuch von 10 Versuchen\n",treffer,fehler, i);
-    }
-    if (i<=9)
-    {
-        printf("%i Versuch\n",i+1);
-    }
-
-    if (Reihenfolge==2)
-    {
-        if (strlen(eingabe)==1)
-        {
-            printf("Der eingegebene Buchstabe wurde schon geraten\n");
-            printf("Geben Sie einen Buchstaben an, den Sie noch nicht geraten haben\n");
-        }
-        else
-        {
-            printf("Das eingegebene Wort wurde schon geraten\n");
-            printf("Geben Sie ein Wort an, den Sie noch nicht geraten haben\n");
-        }
-
-        system("pause");
-        system("cls");
-    }
-
-    if (Reihenfolge==3)
-    {
-        if (strlen(eingabe)==1)
-        {
-            printf("Kein zulaessiger Buchstabe.\n");
-            printf("Probieren Sie es noch einmal\n");
-        }
-        else
-        {
-            printf("Kein zulaessiges Wort.\n");
-            printf("Probieren Sie es noch einmal\n");
-        }
-
-        system("pause");
-        system("cls");
-    }
-
-    if (Reihenfolge==4)
-    {
-
-    }
-
-    if (Reihenfolge==5)
-    {
-
-    }
-
-    if (Reihenfolge==6)
-    {
-        printf("\n__________________________________________________________________________\n[1] = Wiederholen?\n");
-    }
-
-    if (Reihenfolge==7)
-    {
-        printf("Dies ist das gesuchte Wort\n");
-        system("pause");
-    }
-
-    if (gewonnen ==1)
-    {
-        printf("Sie haben dieses Spiel erfolgreich abgeschlossen\n");
-        i = 11;
-    }
-
 }
+
 int main()
 {
-    int wied=0;
-    do
-    {
-        int i=0, i2=0, i3=0, treffer=0, fehler=0, gewonnen=0, gewonnenWort, error;
-        char wort[100]="Wort", wortausgabe[100]="", geraten[100]="", geratenWort[500]="", eingabe[100], name[30]="Julian Rörig", geratenEingabe[100];
-        //wandlet das Wort in Kleinbuchstaben um
-        for (i2 = 0; wort[i2]; i2++)
-        {
-            wort[i2] = tolower(wort[i2]);
-        }
+    G_Init();
+    Draw_FlushBuffer();
 
-//10 Versuche bis Game Over
-        for(i=0; i<10; i++)
-
-        {
-
-
-
-//wiederhole solange, bis ein Buchstabe angegeben wird, der noch nicht geraten wurde, und ein Buchstabe ist
-            do
-            {
-                Ausgabe(i,1,error,wort,wortausgabe,geraten,geratenWort,eingabe,name,treffer,fehler,gewonnen);
-                scanf("%s",eingabe);
-                //wandelt die Eingabe in Kleinbuchstaben um
-                for (i2 = 0; eingabe[i2]; i2++)
-                {
-                    eingabe[i2] = tolower(eingabe[i2]);
-                }
-
-
-                geratenEingabe[0]=',';
-                geratenEingabe[1]=' ';
-                for (i2=0; i2 <=strlen(eingabe); i2++)
-                {
-                    geratenEingabe[i2+2] = eingabe[i2];
-                }
-
-//es wurde nur ein Buchstabe eingegeben
-                if(strlen(eingabe)==1)
-                {
-//Buchstabe wurde schon geraten
-                    if(strstr(geraten, eingabe))
-                    {
-                        error =1;
-                        Ausgabe(i,2,error,wort,wortausgabe,geraten,geratenWort,eingabe,name,treffer,fehler,gewonnen);
-
-
-//Erstes Zeichen ist kein Buchstabe
-                    }
-                    else if(isalpha(eingabe[0])==0)
-                    {
-                        error =1;
-                        Ausgabe(i,3,error,wort,wortausgabe,geraten,geratenWort,eingabe,name,treffer,fehler,gewonnen);
-
-                    }
-                    else
-                    {
-                        error = 0;
-                    }
-
-
-
-
-                }
-if (strlen(eingabe)==1)
-{
-    geratenEingabe[1]='\0';
+    PlayIntro();
 }
 
-            }
-            while(isalpha(eingabe[0])==0 || strstr(geraten, eingabe) || strstr(geratenWort, geratenEingabe));
 
-//Buchstabe ist im Wort enthalten
-//Zählt die richtigen Treffer
-            if (strlen(eingabe)==1 && strstr(wort,eingabe))
-            {
-                treffer= treffer + 1;
-                Ausgabe(i,0,error,wort,wortausgabe,geraten,geratenWort,eingabe,name,treffer,fehler,gewonnen);
+void UpdateGraphics()
+{
 
-            }
-            else if (strlen(eingabe)==strlen(wort) && strcmp(wort,eingabe)==0)
-            {
-                treffer=treffer+1;
-                Ausgabe(i,7,error,wort,wortausgabe,geraten,geratenWort,eingabe,name,treffer,fehler,gewonnen);
-                gewonnen=1;
-            }
-//Buchstabe ist nicht im Wort enthalten
-//Zählt die Fehlversuche
-
-            else
-            {
-                fehler= fehler + 1;
-                Ausgabe(i,0,error,wort,wortausgabe,geraten,geratenWort,eingabe,name,treffer,fehler,gewonnen);
-
-
-            }
-
-//schreibt die Eingaben hintereinander kommagetrennt in $geraten
-            //wenn es sich um den ersten Versuch handelt, lasse das Komma weg
-
-
-            if (strlen(eingabe)==1)
-            {
-                if (strlen(geraten) != 0)
-                {
-                    strcat(geraten,", ");
-                }
-                strcat(geraten, eingabe);
-
-            }
-            else
-            {
-                //schreibt die geratenen Worte kommagetrennt in $geratenWort
-                if (strlen(geratenWort) != 0)
-                {
-                    strcat(geratenWort,", ");
-                }
-                strcat(geratenWort, eingabe);
-            }
-
-
-//Gibt die zu lösenden Buchstaben aus
-            if (strlen(eingabe)==1)
-            {
-                //geht jeden Buchstaben in $wort durch und schreibt wenn die Eingabe einem Buchstaben entspricht, diesen in $wortausgabe, ansonsten "_"
-                for(i3=0; i3 < strlen(wort); i3++)
-                {
-                    if (wort[i3] == eingabe[0])
-                    {
-                        wortausgabe[i3] = eingabe [0];
-                    }
-                    else if (wort[i3] != eingabe[0] && isalpha(wortausgabe[i3])==0 )
-                    {
-                        wortausgabe[i3] = '.';
-
-                    }
-
-                }
-            }
-
-
-
-            if (strcmp(wort, wortausgabe)==0)
-            {
-                gewonnen=1;
-            }
-
-            if (strcmp(wort, eingabe)==0)
-            {
-                gewonnen=1;
-            }
-
-            Ausgabe(i,0,error,wort,wortausgabe,geraten,geratenWort,eingabe,name,treffer,fehler,gewonnen);
-
-
-
-        }
-
-
-
-        Ausgabe(i,6,error,wort,wortausgabe,geraten,geratenWort,eingabe,name,treffer,fehler,gewonnen);
-        scanf("%i",&wied);
-        //setzt die eingaben wieder auf den Standard zurück
-
-    }
-    while(wied==1);
-    return 0;
 }
