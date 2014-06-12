@@ -75,6 +75,7 @@ void Draw_SetBGColor(WORD color);
 void Draw_Write_Char(char e);
 void Draw_Write(char *e);
 void Draw_Write_Line(int line, char *e);
+void Draw_Write_LineAt(int x, int y, char *e);
 void Draw_Write_Line_Fill(int line, char *e);
 void Draw_Clear();
 

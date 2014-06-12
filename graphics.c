@@ -127,6 +127,9 @@ void Draw_FlushBuffer()
     int y = 0;
     _CONSOLE_HANDLE = GetStdHandle(STD_OUTPUT_HANDLE);
 
+    WORD lastColorFG = G_ScreenBuffer_Color_FG[0][0];
+    WORD lastColorBG = G_ScreenBuffer_Color_BG[0][0];
+
     for(y = 0; y < G_DEFAULT_HEIGHT; y++)
     {
         for(x = 0; x < G_DEFAULT_WIDTH; x++)
@@ -140,14 +143,19 @@ void Draw_FlushBuffer()
             // Set the cursor position
             G_SetPosition(x, y);
 
-            // If the foreground color changed
-            if(G_ScreenBuffer_Color_FG[x][y] != G_ScreenBuffer_Color_FG_Last[x][y])
+            // If the foreground color changed since the last draw
+//            if(G_ScreenBuffer_Color_FG[x][y] != lastColorFG)
+//            {
+//                lastColorFG = G_ScreenBuffer_Color_FG[x][y];
                 G_SetFGColor(G_ScreenBuffer_Color_FG[x][y]); // change it
+//            }
 
-            // If the background color changed
-            if(G_ScreenBuffer_Color_BG[x][y] != G_ScreenBuffer_Color_BG_Last[x][y])
-               G_SetBGColor(G_ScreenBuffer_Color_BG[x][y]); // change it
-
+            // If the background color changed since the last draw
+//            if(G_ScreenBuffer_Color_BG[x][y] != lastColorBG)
+//            {
+//                lastColorBG = G_ScreenBuffer_Color_BG[x][y];
+                G_SetBGColor(G_ScreenBuffer_Color_BG[x][y]); // change it
+//            }
 
             // write
             char n = G_ScreenBuffer[x][y];
@@ -160,6 +168,7 @@ void Draw_FlushBuffer()
 
         }
     }
+    G_SetPosition(G_DEFAULT_WIDTH, G_DEFAULT_HEIGHT);
 }
 
 // Set drawing position
@@ -234,6 +243,32 @@ void Draw_Write_Line(int line, char *e)
 {
     _g_current_x = 0;
     _g_current_y = line;
+
+    int length = strlen(e);
+    int i;
+
+    for(i = 0; i < length; i++)
+    {
+        // Write char[i] to position
+        G_ScreenBuffer[_g_current_x][_g_current_y] = e[i];
+
+        // set colors too!
+        G_ScreenBuffer_Color_FG[_g_current_x][_g_current_y] = _g_current_fgcolor;
+        G_ScreenBuffer_Color_BG[_g_current_x][_g_current_y] = _g_current_bgcolor;
+
+        // Advance cursor
+        _g_current_x++;
+
+        // If we are out of bounds
+        if(_g_current_x >= G_DEFAULT_WIDTH)
+            break; // stop here, no line wrapping
+    }
+}
+
+void Draw_Write_LineAt(int x, int y, char *e)
+{
+    _g_current_x = x;
+    _g_current_y = y;
 
     int length = strlen(e);
     int i;

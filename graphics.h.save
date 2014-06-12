@@ -3,11 +3,11 @@
 /*
 
     Faster console printing
-    
+
     Keeps a buffer of the screen, as well as the last state (so you can revert)
     and prints only changed characters.
-    
-    Also allows to write to an exact location without 
+
+    Also allows to write to an exact location and set colors.
 
 */
 
@@ -75,6 +75,8 @@ void Draw_SetBGColor(WORD color);
 void Draw_Write_Char(char e);
 void Draw_Write(char *e);
 void Draw_Write_Line(int line, char *e);
+void Draw_Write_LineAt(int line, char *e);
 void Draw_Write_Line_Fill(int line, char *e);
+void Draw_Clear();
 
 #endif // GRAPHICS_H_INCLUDED
