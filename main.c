@@ -37,8 +37,10 @@
 
 #define TYPE_TIME 100;
 
-#define PLAY_INTRO_PART1 1
+#define PLAY_INTRO_PART1 0
 #define PLAY_INTRO_PART2 1
+#define PLAY_INTRO_PART3 1
+#define PLAY_INTRO_PART4 1
 
 int Anykey()
 {
@@ -125,9 +127,16 @@ void PlayIntro()
 
         int centerX = G_DEFAULT_WIDTH / 2;
         int centerY = G_DEFAULT_HEIGHT / 2;
+        int tempY;
+        int tempX;
 
         if(PLAY_INTRO_PART2)
         {
+            Draw_SetBGColor(G_COLOR_BLACK);
+            Draw_SetFGColor(G_COLOR_GRAY);
+
+            Draw_Write_Line(G_DEFAULT_HEIGHT -1, "Press any key to skip...");
+            Draw_FlushBuffer();
 
             Draw_SetBGColor(G_COLOR_WHITE);
             Draw_SetFGColor(G_COLOR_BLACK);
@@ -183,14 +192,76 @@ void PlayIntro()
             // Hide class logo
             Draw_SetBGColor(G_COLOR_BLACK);
 
-            int tempY;
-
+            // fancy fade out effect
             for(tempY = centerY - 5; tempY <= centerY + 6; tempY++)
             {
-                Draw_Write_Line_Fill(tempY, "");
-                Draw_FlushBuffer();
-                Sleep(100);
+                for(tempX = 0; tempX < G_DEFAULT_WIDTH / 2; tempX++)
+                {
+                    Draw_SetPos(tempX, tempY);
+                    Draw_Write_Char(' ');
+
+                    Draw_SetPos((G_DEFAULT_WIDTH - 1) - tempX, tempY);
+                    Draw_Write_Char(' ');
+
+                    Draw_FlushBuffer();
+                    Sleep(2);
+                }
             }
+        }
+
+        if(PLAY_INTRO_PART3)
+        {
+            Draw_SetBGColor(G_COLOR_BLACK);
+            Draw_SetFGColor(G_COLOR_GRAY);
+
+            Draw_Write_Line(G_DEFAULT_HEIGHT -1, "Press any key to skip...");
+            Draw_FlushBuffer();
+
+            Draw_SetBGColor(G_COLOR_BLACK);
+            Draw_SetFGColor(G_COLOR_WHITE);
+
+            char production_1[] = "A";
+            char production_2[] = "JULIAN ROERIG AND MICHAEL SCHWARZ";
+            char production_3[] = "PRODUCTION";
+
+            GG_TypePrintAt(centerX - 1, centerY - 1, production_1, 100);
+            GG_TypePrintAt(centerX - (strlen(production_2) / 2), centerY, production_2, 100);
+            GG_TypePrintAt(centerX - (strlen(production_3) / 2), centerY + 1, production_3, 100);
+
+            Sleep(2000);
+        }
+
+        if(PLAY_INTRO_PART4)
+        {
+            Draw_SetBGColor(G_COLOR_BLACK);
+            Draw_SetFGColor(G_COLOR_GRAY);
+            Draw_Clear();
+            Draw_Write_Line(G_DEFAULT_HEIGHT -1, "Press any key to skip...");
+            Draw_FlushBuffer();
+
+            char game_title[] = "H   A   N   G   M   A   N";
+            Draw_SetFGColor(G_COLOR_WHITE);
+            GG_TypePrintAt(centerX - (strlen(game_title) / 2), centerY, game_title, 100);
+            Sleep(2000);
+
+            Draw_SetBGColor(G_COLOR_RED);
+            Draw_SetFGColor(G_COLOR_BLACK);
+
+            for(tempX = 0; tempX < G_DEFAULT_WIDTH; tempX++)
+            {
+                for(tempY = 0; tempY < G_DEFAULT_HEIGHT; tempY++)
+                {
+                    Draw_SetPos(tempX, tempY);
+                    Draw_Write_Char(' ');
+                }
+            }
+
+            Draw_SetPos(centerX - (strlen(game_title) / 2), centerY);
+            Draw_Write(game_title);
+            Draw_FlushBuffer();
+            G_SetPosition(0,0);
+
+            Sleep(2000);
         }
 
         break;
@@ -217,12 +288,28 @@ void GG_TypePrint(int line, char *e)
     }
 }
 
+void GG_TypePrintAt(int x, int y, char *e, int speed)
+{
+    int i, len;
+    len = strlen(e);
+    for(i = 0; i < len; i++)
+    {
+        Draw_SetPos(x + i, y);
+        Draw_Write_Char(e[i]);
+        Draw_FlushBuffer();
+        Sleep(speed);
+        if(_kbhit()) break;
+    }
+}
+
 int main()
 {
     G_Init();
     Draw_FlushBuffer();
 
     PlayIntro();
+
+    return 0;
 }
 
 
