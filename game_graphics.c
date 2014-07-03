@@ -120,82 +120,52 @@ void PlayIntro()
 
 		if(PLAY_INTRO_PART2)
 		{
-			Draw_SetBGColor(G_COLOR_BLACK);
-			Draw_SetFGColor(G_COLOR_GRAY);
 
+			Draw_SetBGColor(G_COLOR_LWHITE);
+			Draw_SetFGColor(G_COLOR_BLACK);
+
+			Draw_Fill();
 			Draw_Write_Line(G_DEFAULT_HEIGHT -1, "Press any key to skip...");
 			Draw_FlushBuffer();
 
-			Draw_SetBGColor(G_COLOR_WHITE);
-			Draw_SetFGColor(G_COLOR_BLACK);
+			if(_kbhit()) break;
+            Sleep(500);
+            if(_kbhit()) break;
 
-			char ifa_line1[] = "                     00 000000 000000   000000   000000                         ";
-			char ifa_line2[] = "                     00 00     00  00       00  00   00                         ";
-			char ifa_line3[] = "                     00 0000   000000   00000        00                         ";
-			char ifa_line4[] = "                     00 00     00  00       00       00                         ";
-			char ifa_line5[] = "                     00 00     00  00       00       00                         ";
-			char ifa_line6[] = "                     00 00     00  00   00000        00                         ";
-			char ifa_line7[] = "                                                                                ";
-			char ifa_line8[] = "                                 PRESENTS                                       ";
+/*
+$$$$$$\ $$$$$$$$\  $$$$$$\         $$$$$$\    $$\
+\_$$  _|$$  _____|$$  __$$\       $$ ___$$\ $$$$ |
+  $$ |  $$ |      $$ /  $$ |      \_/   $$ |\_$$ |
+  $$ |  $$$$$\    $$$$$$$$ |        $$$$$ /   $$ |
+  $$ |  $$  __|   $$  __$$ |        \___$$\   $$ |
+  $$ |  $$ |      $$ |  $$ |      $$\   $$ |  $$ |
+$$$$$$\ $$ |      $$ |  $$ |      \$$$$$$  |$$$$$$\
+\______|\__|      \__|  \__|       \______/ \______|
+*/
+
+            char ifa_logo[10][53];
+
+			strcpy(ifa_logo[0], "$$$$$$\\ $$$$$$$$\\  $$$$$$\\         $$$$$$\\    $$\\");
+			strcpy(ifa_logo[1], "\\_$$  _|$$  _____|$$  __$$\\       $$ ___$$\\ $$$$ |");
+			strcpy(ifa_logo[2], "  $$ |  $$ |      $$ /  $$ |      \\_/   $$ |\\_$$ |");
+			strcpy(ifa_logo[3], "  $$ |  $$$$$\\    $$$$$$$$ |        $$$$$ /   $$ |");
+			strcpy(ifa_logo[4], "  $$ |  $$  __|   $$  __$$ |        \\___$$\\   $$ |");
+			strcpy(ifa_logo[5], "  $$ |  $$ |      $$ |  $$ |      $$\\   $$ |  $$ |");
+			strcpy(ifa_logo[6], "$$$$$$\\ $$ |      $$ |  $$ |      \\$$$$$$  |$$$$$$\\");
+			strcpy(ifa_logo[7], "\\______|\\__|      \\__|  \\__|       \\______/ \\______|");
+			strcpy(ifa_logo[8], "");
+			strcpy(ifa_logo[9], "                      PRESENTS                  ");
 
 			// Show Class Logo
-			Draw_Write_Line_Fill(centerY - 5, "");
-			Draw_FlushBuffer();
-			if(_kbhit()) break;
-			Sleep(100);
-			if(_kbhit()) break;
-			Draw_Write_Line_Fill(centerY - 4, "");
-			Draw_FlushBuffer();
-			if(_kbhit()) break;
-			Sleep(100);
-			if(_kbhit()) break;
-			Draw_Write_Line_Fill(centerY - 3, ifa_line1);
-			Draw_FlushBuffer();
-			if(_kbhit()) break;
-			Sleep(100);
-			if(_kbhit()) break;
-			Draw_Write_Line_Fill(centerY - 2, ifa_line2);
-			Draw_FlushBuffer();
-			if(_kbhit()) break;
-			Sleep(100);
-			if(_kbhit()) break;
-			Draw_Write_Line_Fill(centerY - 1, ifa_line3);
-			Draw_FlushBuffer();
-			if(_kbhit()) break;
-			Sleep(100);
-			if(_kbhit()) break;
-			Draw_Write_Line_Fill(centerY + 0, ifa_line4);
-			Draw_FlushBuffer();
-			if(_kbhit()) break;
-			Sleep(100);
-			if(_kbhit()) break;
-			Draw_Write_Line_Fill(centerY + 1, ifa_line5);
-			Draw_FlushBuffer();
-			if(_kbhit()) break;
-			Sleep(100);
-			if(_kbhit()) break;
-			Draw_Write_Line_Fill(centerY + 2, ifa_line6);
-			Draw_FlushBuffer();
-			if(_kbhit()) break;
-			Sleep(100);
-			if(_kbhit()) break;
-			Draw_Write_Line_Fill(centerY + 3, ifa_line7);
-			Draw_FlushBuffer();
-			if(_kbhit()) break;
-			Sleep(100);
-			if(_kbhit()) break;
-			Draw_Write_Line_Fill(centerY + 4, ifa_line8);
-			Draw_FlushBuffer();
-			if(_kbhit()) break;
-			Sleep(100);
-			if(_kbhit()) break;
-			Draw_Write_Line_Fill(centerY + 5, "");
-			Draw_FlushBuffer();
-			if(_kbhit()) break;
-			Sleep(100);
-			if(_kbhit()) break;
-			Draw_Write_Line_Fill(centerY + 6, "");
-			Draw_FlushBuffer();
+			for(tempY = 0; tempY < 10; tempY++)
+            {
+                Draw_Write_LineAt(centerX - (53 / 2), (centerY - 5) + tempY, ifa_logo[tempY]);
+                Draw_FlushBuffer();
+
+                if(_kbhit()) break;
+                Sleep(100);
+                if(_kbhit()) break;
+            }
 
 			if(_kbhit()) break;
 			Sleep(2000);
@@ -205,7 +175,7 @@ void PlayIntro()
 			Draw_SetBGColor(G_COLOR_BLACK);
 
 			// fancy fade out effect
-			for(tempY = centerY - 5; tempY <= centerY + 6; tempY++)
+			for(tempY = 0; tempY < G_DEFAULT_HEIGHT; tempY++)
 			{
 				for(tempX = 0; tempX < G_DEFAULT_WIDTH / 2; tempX++)
 				{
@@ -240,7 +210,7 @@ void PlayIntro()
 			char production_2[] = "MICHAEL SCHWARZ";
 			char production_3[] = "PRODUCTION";
 
-			GG_TypePrintAt(centerX - 1, centerY - 1, production_1, 100);
+			GG_TypePrintAt(centerX, centerY - 1, production_1, 100);
 			if(_kbhit()) break;
 			GG_TypePrintAt(centerX - (strlen(production_2) / 2), centerY, production_2, 100);
 			if(_kbhit()) break;
