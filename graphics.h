@@ -78,5 +78,6 @@ void Draw_Write_Line(int line, char *e);
 void Draw_Write_LineAt(int x, int y, char *e);
 void Draw_Write_Line_Fill(int line, char *e);
 void Draw_Clear();
+void Draw_Fill();
 
 #endif // GRAPHICS_H_INCLUDED

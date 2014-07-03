@@ -14,3 +14,39 @@
 	<conio.h>
 	"graphics.h"
 
+1404418840 source:f:\#documents\github\edu.hangman\game_graphics.c
+	"graphics.h"
+	"game_graphics.h"
+	<windows.h>
+
+1404418619 f:\#documents\github\edu.hangman\graphics.h
+	<windows.h>
+
+1404417899 f:\#documents\github\edu.hangman\game_graphics.h
+
+1404419915 source:f:\#documents\github\edu.hangman\graphics.c
+	"graphics.h"
+
+1404422983 source:f:\#documents\github\edu.hangman\main.c
+	<unistd.h>
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	<ctype.h>
+	<conio.h>
+	"graphics.h"
+	"game_graphics.h"
+	"game.h"
+	"menu.h"
+
+1404418798 f:\#documents\github\edu.hangman\game.h
+
+1404422339 f:\#documents\github\edu.hangman\menu.h
+
+1404422937 source:f:\#documents\github\edu.hangman\menu.c
+	<windows.h>
+	<stdio.h>
+	"graphics.h"
+	"game.h"
+	"menu.h"
+

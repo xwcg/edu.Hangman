@@ -1,0 +1,11 @@
+#ifndef GAME_H_INCLUDED
+#define GAME_H_INCLUDED
+
+// Game fps; Draw the screen 30 tim
+#define FPS 30
+
+int isGameRunning = 1;
+
+
+
+#endif // GAME_H_INCLUDED
