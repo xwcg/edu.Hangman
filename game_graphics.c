@@ -121,10 +121,40 @@ void PlayIntro()
 		if(PLAY_INTRO_PART2)
 		{
 
-			Draw_SetBGColor(G_COLOR_LWHITE);
 			Draw_SetFGColor(G_COLOR_BLACK);
 
-			Draw_Fill();
+            // fancy fade in effect
+            int i;
+
+            for(i = 0; i < 3; i++)
+            {
+                if(i == 0)
+                    Draw_SetBGColor(G_COLOR_GRAY);
+                else if(i == 1)
+                    Draw_SetBGColor(G_COLOR_WHITE);
+                else
+                    Draw_SetBGColor(G_COLOR_LWHITE);
+
+                for(tempY = 0; tempY < G_DEFAULT_HEIGHT; tempY++)
+                {
+                    for(tempX = 0; tempX < G_DEFAULT_WIDTH / 2; tempX++)
+                    {
+                        Draw_SetPos(tempX, tempY);
+                        Draw_Write_Char(' ');
+
+                        Draw_SetPos((G_DEFAULT_WIDTH - 1) - tempX, tempY);
+                        Draw_Write_Char(' ');
+
+                        Draw_FlushBuffer();
+                        if(_kbhit()) break;
+                        Sleep(1);
+                        if(_kbhit()) break;
+                    }
+                    if(_kbhit()) break;
+                }
+                Draw_Write_Line(G_DEFAULT_HEIGHT -1, "Press any key to skip...");
+            }
+
 			Draw_Write_Line(G_DEFAULT_HEIGHT -1, "Press any key to skip...");
 			Draw_FlushBuffer();
 
