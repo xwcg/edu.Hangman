@@ -25,6 +25,9 @@
 // Program entry point
 int main()
 {
+    // Praise to the RNG Gods
+    srand(time);
+
     // Initialize graphics library
 	G_Init();
 	// Initial buffer flush to sync up the buffer with the actual screen
@@ -39,7 +42,6 @@ int main()
         if(kbhit()) getch();
     }
 
-
     // Play the intro, skippable!
 	PlayIntro();
 
@@ -53,9 +55,11 @@ int main()
         switch(menuSelection)
         {
             case MENU_START:
+                Game_Run();
                 break;
 
             case MENU_STATS:
+                Stats_Show();
                 break;
 
             case MENU_QUIT:

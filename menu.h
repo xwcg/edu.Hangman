@@ -8,9 +8,11 @@
 #define MENU_TITLE_HEIGHT 8
 #define MENU_TITLE_WIDTH 48
 
-
+void Menu_Setup();
 int Menu_Show();
 void Menu_Cycle();
 void Menu_Draw();
+
+void Stop();
 
 #endif // MENU_H_INCLUDED

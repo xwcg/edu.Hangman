@@ -1,0 +1,341 @@
+
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <windows.h>
+#include <ctype.h>
+#include <conio.h>
+
+#include "graphics.h"
+#include "game.h"
+#include "menu.h"
+
+int keyPressed = -1;
+char game_word[];
+
+void Game_Run()
+{
+    int difficulty = Difficulty_Show();
+
+    if(difficulty == MENU_D_BACK)
+        return;
+
+    Game_LoadWord(difficulty);
+
+    // Clear screen
+    Draw_SetFGColor(G_COLOR_WHITE);
+    Draw_SetBGColor(G_COLOR_BLACK);
+    Draw_Fill();
+
+    int game_running = 1;
+    while(game_running)
+    {
+        if(kbhit())
+        {
+            // Get escape sequence
+            keyPressed = getch();
+
+            // Escape sequence?
+            if(keyPressed == 0 || keyPressed == 0xE0)
+            {
+                // Get key code to drain buffer
+                keyPressed = getch();
+            }
+            // Enter hit
+            else if(keyPressed == 13)
+            {
+                game_running = 0;
+            }
+            else
+            {
+
+            }
+        }
+
+        // Update screen
+        Draw_FlushBuffer();
+        Sleep(FRAMETIME);
+    }
+}
+
+void Game_LoadWord(int difficulty)
+{
+    FILE* fileHandle;
+    char line[BUFSIZ];
+
+    switch(difficulty)
+    {
+        case MENU_D_EASY:
+            fileHandle = fopen("easy.txt", "r");
+            break;
+        case MENU_D_NORMAL:
+            fileHandle = fopen("normal.txt", "r");
+            break;
+        case MENU_D_HARD:
+            fileHandle = fopen("hard.txt", "r");
+            break;
+        case MENU_D_LEGENDARY:
+            fileHandle = fopen("legend.txt", "r");
+            break;
+    }
+
+    if(fileHandle == NULL)
+        Stop("Unable to open word file");
+
+    // Count words
+    int lines = 0;
+    for(;fgets(line, sizeof(line), fileHandle);lines++);
+
+    // Get a random word
+    lines = rand() % lines;
+
+    // Reset the file cursor
+    fseek(fileHandle, 0, SEEK_SET);
+
+    // Read until line
+    for(;lines > 0;lines--)
+    {
+        fgets(line, sizeof(line), fileHandle);
+    }
+
+    char *word = "";
+    for(lines = 0; lines < BUFSIZ; lines++)
+    {
+        strcat(&word, line[lines]);
+    }
+    strcat(&word, '');
+}
+
+// Stats
+
+void Stats_Show()
+{
+    // Clear screen
+    Draw_SetFGColor(G_COLOR_WHITE);
+    Draw_SetBGColor(G_COLOR_BLACK);
+    Draw_Fill();
+
+    Draw_SetFGColor(G_COLOR_LWHITE);
+    Draw_SetBGColor(G_COLOR_BLUE);
+
+    int temp = 5;
+    Draw_Write_Line_Fill(temp++, " ");
+    Draw_Write_Line_Fill(temp++, " This free shareware version of HANGMAN does not include game statistics!");
+    Draw_Write_Line_Fill(temp++, " ");
+    Draw_Write_Line_Fill(temp++, " Order the full version now for the low price of 49.99 EUR");
+    Draw_Write_Line_Fill(temp++, " ");
+    Draw_Write_Line_Fill(temp++, "               mschwarz@soft-evolution.com");
+    Draw_Write_Line_Fill(temp++, " ");
+    Draw_SetFGColor(G_COLOR_LPURPLE);
+    Draw_Write_Line_Fill(temp++, " Press [ENTER] to return to the main menu.");
+    Draw_Write_Line_Fill(temp++, " ");
+
+    int stats_running = 1;
+    while(stats_running)
+    {
+        if(kbhit())
+        {
+            // Get escape sequence
+            keyPressed = getch();
+
+            // Enter hit
+            if(keyPressed == 13)
+            {
+                stats_running = 0;
+            }
+        }
+
+        // Update screen
+        Draw_FlushBuffer();
+        Sleep(FRAMETIME);
+    }
+}
+
+
+// Difficulty Menu
+
+int difficulty_is_setup = 0;
+
+int difficulty_currentItem = MENU_D_EASY;
+int difficulty_lastItem = 0;
+
+char difficulty_title[MENU_D_TITLE_HEIGHT][MENU_D_TITLE_WIDTH];
+
+void Difficulty_Setup()
+{
+    difficulty_currentItem = MENU_D_EASY;
+    difficulty_lastItem = 0;
+
+    // Clear buffer
+    if(kbhit()) getch();
+
+    if(difficulty_is_setup == 0)
+    {
+        /* Reference:
+______ _  __  __ _            _ _
+|  _  (_)/ _|/ _(_)          | | |
+| | | |_| |_| |_ _  ___ _   _| | |_ _   _
+| | | | |  _|  _| |/ __| | | | | __| | | |
+| |/ /| | | | | | | (__| |_| | | |_| |_| |
+|___/ |_|_| |_| |_|\___|\__,_|_|\__|\__, |
+                                     __/ |
+                                    |___/
+                                            */
+
+        strcpy(difficulty_title[0], "______ _  __  __ _            _ _         ");
+        strcpy(difficulty_title[1], "|  _  (_)/ _|/ _(_)          | | |        ");
+        strcpy(difficulty_title[2], "| | | |_| |_| |_ _  ___ _   _| | |_ _   _ ");
+        strcpy(difficulty_title[3], "| | | | |  _|  _| |/ __| | | | | __| | | |");
+        strcpy(difficulty_title[4], "| |/ /| | | | | | | (__| |_| | | |_| |_| |");
+        strcpy(difficulty_title[5], "|___/ |_|_| |_| |_|\\___|\\__,_|_|\\__|\\__, |");
+        strcpy(difficulty_title[6], "                                     __/ |");
+        strcpy(difficulty_title[7], "                                    |___/ ");
+
+        difficulty_is_setup = 1;
+    }
+}
+
+int Difficulty_Show()
+{
+    // Setup
+    Difficulty_Setup();
+
+    // Clear screen
+    Draw_SetFGColor(G_COLOR_WHITE);
+    Draw_SetBGColor(G_COLOR_BLACK);
+    Draw_Fill();
+
+    // No need to flush the buffer, let's draw the difficulty first
+    //Draw_FlushBuffer();
+
+    int showingDifficulty = 1;
+
+    while(showingDifficulty)
+    {
+        if(kbhit())
+        {
+            // Get escape sequence
+            keyPressed = getch();
+
+            // Arrow key escape sequence?
+            if(keyPressed == 0 || keyPressed == 0xE0)
+            {
+                // Get key code
+                keyPressed = getch();
+
+                // And process the Actual key
+                switch(keyPressed)
+                {
+                    // Arrow UP
+                    case 'H':
+                        Difficulty_Cycle(-1);
+                        break;
+
+                    // Arrow DOWN
+                    case 'P':
+                        Difficulty_Cycle(1);
+                        break;
+
+                    // Arrow RIGHT
+                    case 'M':
+                        break;
+
+                    // Arrow LEFT
+                    case 'K':
+                        break;
+                }
+            }
+            // Enter hit
+            else if(keyPressed == 13)
+            {
+                showingDifficulty = 0;
+            }
+        }
+
+        // Draw changes
+        Difficulty_Draw();
+
+        // Update screen
+        Draw_FlushBuffer();
+        Sleep(FRAMETIME);
+    }
+
+    return difficulty_currentItem;
+}
+
+void Difficulty_Cycle(int dir)
+{
+    // Change difficulty selection
+    difficulty_currentItem += dir;
+
+    // Boundary check
+    if(difficulty_currentItem > MENU_D_BACK)
+        difficulty_currentItem = MENU_D_EASY;
+    else if(difficulty_currentItem < MENU_D_EASY)
+        difficulty_currentItem = MENU_D_BACK;
+}
+
+void Difficulty_Draw()
+{
+    // if the difficulty selection changed
+    if(difficulty_currentItem != difficulty_lastItem)
+    {
+        int i;
+
+        // Title in green
+        Draw_SetBGColor(G_COLOR_BLACK);
+        Draw_SetFGColor(G_COLOR_RED);
+
+        for(i = 0; i < MENU_D_TITLE_HEIGHT; i++)
+        {
+            Draw_Write_LineAt(5, i + 2, difficulty_title[i]);
+        }
+
+        // Difficulty items in white
+        Draw_SetFGColor(G_COLOR_WHITE);
+
+        if(difficulty_currentItem == MENU_D_EASY) Draw_SetFGColor(G_COLOR_LWHITE); else Draw_SetFGColor(G_COLOR_WHITE);
+        Draw_Write_LineAt(7, 12, "   Easy      (3:00 - Short English Words)");
+
+        if(difficulty_currentItem == MENU_D_NORMAL) Draw_SetFGColor(G_COLOR_LWHITE); else Draw_SetFGColor(G_COLOR_WHITE);
+        Draw_Write_LineAt(7, 14, "   Normal    (1:30 - Normal English Words)");
+
+        if(difficulty_currentItem == MENU_D_HARD) Draw_SetFGColor(G_COLOR_LWHITE); else Draw_SetFGColor(G_COLOR_WHITE);
+        Draw_Write_LineAt(7, 16, "   Hard      (1:00 - Complex English Word)");
+
+        if(difficulty_currentItem == MENU_D_LEGENDARY) Draw_SetFGColor(G_COLOR_LWHITE); else Draw_SetFGColor(G_COLOR_WHITE);
+        Draw_Write_LineAt(7, 18, "   Legendary (0:30 - Mixed Languages)");
+
+        if(difficulty_currentItem == MENU_D_BACK) Draw_SetFGColor(G_COLOR_LWHITE); else Draw_SetFGColor(G_COLOR_WHITE);
+        Draw_Write_LineAt(7, 22, "   Back");
+
+        // Chevron in red
+        Draw_SetFGColor(G_COLOR_RED);
+        switch(difficulty_currentItem)
+        {
+            case MENU_D_EASY:
+                Draw_Write_LineAt(7, 12, "->");
+                break;
+            case MENU_D_NORMAL:
+                Draw_Write_LineAt(7, 14, "->");
+                break;
+            case MENU_D_HARD:
+                Draw_Write_LineAt(7, 16, "->");
+                break;
+            case MENU_D_LEGENDARY:
+                Draw_Write_LineAt(7, 18, "->");
+                break;
+            case MENU_D_BACK:
+                Draw_Write_LineAt(7, 22, "->");
+                break;
+        }
+
+
+        // Hint in gray
+        Draw_SetFGColor(G_COLOR_GRAY);
+        Draw_Write_LineAt(1, G_DEFAULT_HEIGHT - 1, "Use [ARROW KEYS] to change selection, [ENTER] to confirm.");
+
+        // and update values so we don't have any unnecessary redraws
+        difficulty_lastItem = difficulty_currentItem;
+    }
+}

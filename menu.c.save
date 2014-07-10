@@ -20,6 +20,12 @@ char menu_title[MENU_TITLE_HEIGHT][MENU_TITLE_WIDTH];
 
 void Menu_Setup()
 {
+    menu_currentItem = MENU_START;
+    menu_lastItem = 0;
+
+    // Clear buffer
+    if(kbhit()) getch();
+
     if(menu_is_setup == 0)
     {
         /* Reference:
@@ -46,7 +52,7 @@ void Menu_Setup()
     }
 }
 
-void Menu_Show()
+int Menu_Show()
 {
     // Setup
     Menu_Setup();
@@ -61,7 +67,6 @@ void Menu_Show()
 
     int showingMenu = 1;
     int keyPressed = -1;
-    int keyI = 0;
 
     while(showingMenu)
     {
@@ -80,10 +85,12 @@ void Menu_Show()
             // Get escape sequence
             keyPressed = getch();
 
+            /*
             Draw_SetPos(0,0);
-            char[15] dbg;
-            sprintf(dbg, "%d", aInt);
-            
+            char dbg[15];
+            sprintf(dbg, "%d", keyPressed);
+            Draw_Write(dbg);
+            */
 
             // Arrow key escape sequence?
             if(keyPressed == 0 || keyPressed == 0xE0)
@@ -113,9 +120,12 @@ void Menu_Show()
                         break;
                 }
             }
+            // Enter hit
+            else if(keyPressed == 13)
+            {
+                showingMenu = 0;
+            }
         }
-        else
-            keyI = 0;
 
         // Draw changes
         Menu_Draw();
@@ -124,6 +134,8 @@ void Menu_Show()
         Draw_FlushBuffer();
         Sleep(FRAMETIME);
     }
+
+    return menu_currentItem;
 }
 
 void Menu_Cycle(int dir)
@@ -157,8 +169,13 @@ void Menu_Draw()
         // Menu items in white
         Draw_SetFGColor(G_COLOR_WHITE);
 
+        if(menu_currentItem == MENU_START) Draw_SetFGColor(G_COLOR_LWHITE); else Draw_SetFGColor(G_COLOR_WHITE);
         Draw_Write_LineAt(7, 12, "   Start Game");
+
+        if(menu_currentItem == MENU_STATS) Draw_SetFGColor(G_COLOR_LWHITE); else Draw_SetFGColor(G_COLOR_WHITE);
         Draw_Write_LineAt(7, 14, "   Statistics");
+
+        if(menu_currentItem == MENU_QUIT) Draw_SetFGColor(G_COLOR_LWHITE); else Draw_SetFGColor(G_COLOR_WHITE);
         Draw_Write_LineAt(7, 16, "   Quit");
 
         // Chevron in red
@@ -183,4 +200,15 @@ void Menu_Draw()
         // and update values so we don't have any unnecessary redraws
         menu_lastItem = menu_currentItem;
     }
+}
+
+
+void Stop(char* msg)
+{
+    // Clear screen
+    Draw_SetFGColor(G_COLOR_LWHITE);
+    Draw_SetBGColor(G_COLOR_RED);
+    Draw_Fill();
+    
+    
 }

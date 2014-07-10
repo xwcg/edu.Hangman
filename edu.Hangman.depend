@@ -27,25 +27,38 @@
 1404419915 source:f:\#documents\github\edu.hangman\graphics.c
 	"graphics.h"
 
-1404422983 source:f:\#documents\github\edu.hangman\main.c
+1405026945 source:f:\#documents\github\edu.hangman\main.c
 	<unistd.h>
 	<stdio.h>
 	<stdlib.h>
 	<windows.h>
 	<ctype.h>
 	<conio.h>
+	<time.h>
 	"graphics.h"
 	"game_graphics.h"
 	"game.h"
 	"menu.h"
 
-1404418798 f:\#documents\github\edu.hangman\game.h
+1405026847 f:\#documents\github\edu.hangman\game.h
 
-1404422339 f:\#documents\github\edu.hangman\menu.h
+1405025328 f:\#documents\github\edu.hangman\menu.h
 
-1404422937 source:f:\#documents\github\edu.hangman\menu.c
+1405026426 source:f:\#documents\github\edu.hangman\menu.c
 	<windows.h>
 	<stdio.h>
+	<conio.h>
+	"graphics.h"
+	"game.h"
+	"menu.h"
+
+1405027617 source:f:\#documents\github\edu.hangman\game.c
+	<unistd.h>
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	<ctype.h>
+	<conio.h>
 	"graphics.h"
 	"game.h"
 	"menu.h"

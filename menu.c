@@ -1,5 +1,6 @@
 #include <windows.h>
 #include <stdio.h>
+#include <conio.h>
 
 #include "graphics.h"
 #include "game.h"
@@ -169,8 +170,13 @@ void Menu_Draw()
         // Menu items in white
         Draw_SetFGColor(G_COLOR_WHITE);
 
+        if(menu_currentItem == MENU_START) Draw_SetFGColor(G_COLOR_LWHITE); else Draw_SetFGColor(G_COLOR_WHITE);
         Draw_Write_LineAt(7, 12, "   Start Game");
+
+        if(menu_currentItem == MENU_STATS) Draw_SetFGColor(G_COLOR_LWHITE); else Draw_SetFGColor(G_COLOR_WHITE);
         Draw_Write_LineAt(7, 14, "   Statistics");
+
+        if(menu_currentItem == MENU_QUIT) Draw_SetFGColor(G_COLOR_LWHITE); else Draw_SetFGColor(G_COLOR_WHITE);
         Draw_Write_LineAt(7, 16, "   Quit");
 
         // Chevron in red
@@ -196,3 +202,42 @@ void Menu_Draw()
         menu_lastItem = menu_currentItem;
     }
 }
+
+
+void Stop(char* msg)
+{
+    // Clear screen
+    Draw_SetFGColor(G_COLOR_LWHITE);
+    Draw_SetBGColor(G_COLOR_RED);
+    Draw_Fill();
+
+    Draw_Write_LineAt(2, 2, "An Unexpected error occured:");
+    Draw_Write_LineAt(2, 3, msg);
+    Draw_FlushBuffer();
+
+    getch();
+    exit(-1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

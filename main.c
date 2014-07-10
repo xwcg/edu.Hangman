@@ -5,6 +5,7 @@
 #include <windows.h>
 #include <ctype.h>
 #include <conio.h>
+#include <time.h>
 
 // Project Includes
 #include "graphics.h"
@@ -25,6 +26,9 @@
 // Program entry point
 int main()
 {
+    // Praise to the RNG Gods
+    srand(time(NULL));
+
     // Initialize graphics library
 	G_Init();
 	// Initial buffer flush to sync up the buffer with the actual screen
@@ -52,9 +56,11 @@ int main()
         switch(menuSelection)
         {
             case MENU_START:
+                Game_Run();
                 break;
 
             case MENU_STATS:
+                Stats_Show();
                 break;
 
             case MENU_QUIT:

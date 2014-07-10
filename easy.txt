@@ -1,0 +1,7 @@
+apple
+tree
+duck
+glass
+mama
+papa
+spoon
